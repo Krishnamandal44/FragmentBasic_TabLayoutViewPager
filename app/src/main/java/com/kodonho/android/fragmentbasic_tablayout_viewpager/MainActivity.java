@@ -7,19 +7,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 /*
     1. 그래들에 design 라이브러리 추가
     2. main xml 에 TabLayut , ViewPager 추가
  */
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
 
     static final int FRAGMENT_COUNT = 4;
     HomeFragment home;
     MapFragment map;
     EtcFragment etc;
-    SettingsFragment settings;
+    Fragment settings;
 
     ViewPager pager;
 
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         home = new HomeFragment();
         map = new MapFragment();
         etc = new EtcFragment();
-        settings = new SettingsFragment();
+        settings = BlankFragment.newInstance("","");
 
         TabLayout tab = (TabLayout) findViewById(R.id.tab);
         tab.addTab(tab.newTab().setText("Home"));
@@ -64,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        });
+    }
+
+    @Override
+    public void onFragmentInteraction(Fragment fragment) {
+        Toast.makeText(this, "서브 프래그먼트에서 클릭됨", Toast.LENGTH_SHORT).show();
     }
 
     class PagerAdapter extends FragmentStatePagerAdapter {
